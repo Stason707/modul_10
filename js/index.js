@@ -77,7 +77,6 @@ const display = () => {
     const valArr = fruits[i].color;
     let li = document.createElement('li');
     li.className = 'fruit__item ' + classArray.getKeyByValue(valArr); // присваиваем элементу списка li Класс + цвет карточки
-    // li_1.innerHTML = 'Первый элемент';
     fruitsList.appendChild(li);
     let div = document.createElement('div');
     div.className = 'fruit__info'; // блок с параметрами фрукта
