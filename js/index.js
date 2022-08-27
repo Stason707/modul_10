@@ -158,9 +158,13 @@ let sortTime = '-'; // инициализация состояния време�
 const comparationColor = (a, b) => {
   if (a.color === b.color) {
     return 0;
-  }
-  return a.color < b.color ? -1 : 1;
+  } else if (a.color > b.color) {
+    return 1;
+   } else {
+    return -1;
+   }
 };
+
 //Функция обмена элементов
 function swap(fruits, firstIndex, secondIndex) { // в качестве аргументов принимается массив, и 2 индекса его ключей
   const temp = fruits[firstIndex];
@@ -185,11 +189,12 @@ function partition(fruits, left, right) {
       j--;
     }
   }
+  console.log(i, pivot);
   return i;
 };
 //Функция с алгоритмом быстрой сортировки
 function quickSort(fruits, left, right) {
-  var index;
+  let index;
   if (parseInt(fruits.length) > 1) {
     left = typeof left != "number" ? 0 : left;
     right = typeof right != "number" ? fruits.length - 1 : right;
@@ -220,7 +225,6 @@ const sortAPI = {
         }
       }
     }
-
   },
 
   // выполняет сортировку и производит замер времени
@@ -237,6 +241,7 @@ sortKindLabel.textContent = sortKind;
 sortTimeLabel.textContent = sortTime;
 
 sortChangeButton.addEventListener('click', () => {
+  console.log(fruits);
   // TODO: переключать значение sortKind между 'bubbleSort' / 'quickSort'
   if (sortKind === 'bubbleSort') {
     sortKind = 'quickSort';
@@ -252,7 +257,6 @@ sortActionButton.addEventListener('click', () => {
     sortTimeLabel.textContent = 'sorting...';
     const sort = sortAPI[sortKind];
     sortAPI.startSort(sort, fruits, comparationColor);
-    console.log(sortKind);
     display();
     // TODO: вывести в sortTimeLabel значение sortTime
     sortTimeLabel.textContent = sortTime;
@@ -260,7 +264,7 @@ sortActionButton.addEventListener('click', () => {
     sortTimeLabel.textContent = 'sorting...';
     quickSort(fruits, 0, fruits.length - 1);
     sortTimeLabel.textContent = sortTime;
-    console.log(sortKind);
+    console.log(fruits);
     display();
   }
 });
@@ -271,7 +275,7 @@ addActionButton.addEventListener('click', () => {
   // TODO: создание и добавление нового фрукта в массив fruits
   // необходимые значения берем из kindInput, colorInput, weightInput
   if ((kindInput.value === '') || (weightInput.value === '') || (colorInput.value === '')) {
-    alert('Не заполнено одно из полей')
+    alert('Не заполнено одно или несколько полей')
   } else {
     fruits.push({
       "kind": kindInput.value,
