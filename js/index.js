@@ -173,7 +173,7 @@ function swap(fruits, firstIndex, secondIndex) { // в качестве аргу
 };
 //функция разделитель
 function partition(fruits, left, right) {
-  var pivot = fruits[Math.floor((right + left) / 2)],
+  let pivot = fruits[Math.floor((right + left) / 2)],
     i = left,
     j = right;
   while (i <= j) {
@@ -189,24 +189,23 @@ function partition(fruits, left, right) {
       j--;
     }
   }
-  console.log(i, pivot);
   return i;
 };
 //Функция с алгоритмом быстрой сортировки
 function quickSort(fruits, left, right) {
   let index;
-  if (parseInt(fruits.length) > 1) {
-    left = typeof left != "number" ? 0 : left;
-    right = typeof right != "number" ? fruits.length - 1 : right;
-    index = partition(fruits, left, right);
-    if (left < index - 1) {
-      quickSort(fruits, left, index - 1);
+  if (fruits.length > 1) { // Если длина массива больше 1 (она всегда больше 1)
+    left = typeof left != "number" ? 0 : left; // то определяем левый
+    right = typeof right != "number" ? fruits.length - 1 : right; // и правый элементы
+    index = partition(fruits, left, right);// а так же индекс элемента разделителя
+    if (left < index - 1) { // и если элемент определенный как левый, меньше индекса разделителя
+      quickSort(fruits, left, index - 1); // то в рекурсивный вызов функции передаем массив, левый индекс и разделитель минус 1 (единицу) в качестве аргументов  
     }
-    if (index < right) {
-      quickSort(fruits, index, right);
+    if (index < right) {// если правый элемент больше индекса разделителя, то в рукурсивный вызов функции quickSort передаем аргументы: массив, разделитель и правый индекс.
+      quickSort(fruits, index, right); 
     }
   }
-  return fruits;
+  return fruits; // если длина массива меньше 1, выводим массив, не подлежащий сортировке
 
 };
 const sortAPI = {
